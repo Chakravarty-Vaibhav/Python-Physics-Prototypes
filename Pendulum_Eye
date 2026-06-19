@@ -1,0 +1,26 @@
+import numpy as np
+import matplotlib.pyplot as plt 
+theta = np.linspace(-np.pi, np.pi, 20)
+omega = np.linspace(-5, 5 , 20)
+
+THETA , OMEGA = np.meshgrid(theta, omega)
+
+acceleration = -9.81 * np.sin(THETA)
+
+fig , (ax1) = plt.subplots(1, figsize = (4,4))
+ax1.set_aspect(1)
+ax1.set_title('Pendulum Phase Space')
+
+THETA_dt = OMEGA
+OMEGA_dt = -9.87 * np.sin(THETA)
+ax1.streamplot(THETA, OMEGA, THETA_dt, OMEGA_dt, color=OMEGA,         
+              cmap='coolwarm',     
+              density=1.5,         
+              linewidth=1.2,       
+              arrowsize=1.5) 
+ax1.set_xlabel("Pendulum Angle (Theta)")
+ax1.set_ylabel("Angular Velocity (Omega)")
+plt.show()
+
+
+
