@@ -1,0 +1,108 @@
+#### 1. Import the numpy package under the name `np` (★☆☆)
+import numpy as np 
+
+#### 3. Create a null vector of size 10 (★☆☆)
+arr0 = np.zeros(10)
+
+#### 4. How to find the memory size of any array (★☆☆)
+
+#### 6. Create a null vector of size 10 but the fifth value which is 1 (★☆☆)
+arr1 = np.zeros(10)
+arr1[4]= 1
+
+#### 7. Create a vector with values ranging from 10 to 49 (★☆☆)
+arr2 = np.arange(10,50,1)
+
+#### 8. Reverse a vector (first element becomes last) (★☆☆)
+arr3 =np.array([1,2,3,4,5,6,7,8,9])
+arr3 = np.flip(arr3)
+arr4 = arr3[::-1]
+
+#### 9. Create a 3x3 matrix with values ranging from 0 to 8 (★☆☆)
+arr5 = np.arange(0,9).reshape(3,3)
+
+#### 10. Find indices of non-zero elements from [1,2,0,0,4,0] (★☆☆)
+arr6 = np.array([1,2,0,0,4,0])
+arr7 = np.where(arr6 !=0)
+
+#### 11. Create a 3x3 identity matrix (★☆☆)
+arr8 = np.identity(3)
+arr9 = np.eye(3,3,0) #creates an identity too. Remember, USEFUL
+
+#### 12. Create a 3x3x3 array with random values (★☆☆)
+arr10 = np.random.random((3,3,3))
+
+#### 13. Create a 10x10 array with random values and find the minimum and maximum values (★☆☆)
+arr11 = np.random.random((10,10))
+np.min(arr11)
+np.max(arr11)
+
+#### 15. Create a 2d array with 1 on the border and 0 inside (★☆☆)
+arr12 =np.array([1,1,1])
+arr13= np.array([1,0,1])
+arr14= np.array([1,1,1])
+arr15= np.vstack((arr12,arr13,arr14))### onlygood for small ones, try using slicing on those zeros and ones 
+###
+arr16 = np.ones((5,5))
+arr16[1:-1, 1:-1] = 0
+
+#### 16. How to add a border (filled with 0's) around an existing array? (★☆☆)
+arr17 = np.ones((3,3))
+arr18 = np.pad(arr17, pad_width=((1,1),(1,1)), mode='constant', constant_values= 0)
+
+#### 18. Create a 5x5 matrix with values 1,2,3,4 just below the diagonal (★☆☆)
+arr19 = np.arange(1,5)
+arr20 = np.diag(arr19, k= -1)
+
+#### 19. Create a 8x8 matrix and fill it with a checkerboard pattern (★☆☆)
+arr21 = np.ones((8,8))
+arr21[1::2, ::2]= 0
+arr21[::2, 1::2]= 0
+
+#### 20. Consider a (6,7,8) shape array, what is the index (x,y,z) of the 100th element? (★☆☆)
+arr22 = np.unravel_index(99, (6,7,8))
+
+#### 21. Create a checkerboard 8x8 matrix using the tile function (★☆☆)
+arr23 = np.array((1,0,0,1)).reshape(2,2)
+arr24= np.tile(arr23, (4,4))
+
+#### 22. Normalize a 5x5 random matrix (★☆☆)
+arr25 = np.random.random((5,5))
+Z_min = arr25.min()
+Z_max = arr25.max()
+arr26 = (arr25 - Z_min)*(1/(Z_max - Z_min))
+
+#### 23. Create a custom dtype that describes a color as four unsigned bytes (RGBA) (★☆☆)
+
+#### 24. Multiply a 5x3 matrix by a 3x2 matrix (real matrix product) (★☆☆)
+arr27= np.ones((5,3)) @ np.ones((3,2))
+
+#### 25. Given a 1D array, negate all elements which are between 3 and 8, in place. (★☆☆)
+arr28 = np.array([1,2,3,5,8,9,11,15,32,6,7])
+arr28[(arr28>3) & (arr28 <8)] *= -1
+
+#### 37. Create a 5x5 matrix with row values ranging from 0 to 4 (★★☆)
+arr29 = np.tile(np.arange(0,5), (5,1))
+
+#### 38 You are tracking a SpaceX rocket. Here is an array of its altitude in meters, recorded every dt = 0.5 seconds.
+####Task: Calculate the rocket's velocity array. Then, use np.diff again to find acceleration array
+
+dt = 0.5
+altitude = np.array([0, 10, 40, 90, 160, 250])
+velocity = np.diff(altitude) / dt
+acceleration = np.diff(velocity) / dt
+
+#### 39 You have an array tracking the daily deposits (positive) and withdrawals (negative) in a bank account over a week.
+####Task: Use np.cumsum to generate an array showing the bank account's balance at the end of each day.
+
+transactions = np.array([100, -20, 50, -10, -10, 200, -50])
+balance = np.cumsum(transactions)
+
+####40) You have telemetry data from an F1 car. You know the exact time (in seconds) and the velocity (in m/s).
+####    Note that the time intervals are NOT perfectly even!
+####    Task: Since the dt gaps are uneven, you cannot easily use np.cumsum. 
+####    Calculate the exact total distance the F1 car traveled in those 5 seconds.
+time1 = np.array([0.0, 1.2, 1.8, 3.1, 4.5, 5.0])
+velocity1 = np.array([0.0, 25.0, 45.0, 80.0, 85.0, 90.0])
+distance1 = np.trapz(velocity1 , x = time1)
+
