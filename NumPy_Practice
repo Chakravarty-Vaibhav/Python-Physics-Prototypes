@@ -106,3 +106,26 @@ time1 = np.array([0.0, 1.2, 1.8, 3.1, 4.5, 5.0])
 velocity1 = np.array([0.0, 25.0, 45.0, 80.0, 85.0, 90.0])
 distance1 = np.trapz(velocity1 , x = time1)
 
+####41): The Rogue Waves
+
+#You are monitoring an ocean buoy. You have an array of wave heights in meters: heights = np.array([1.2, 2.5, 0.8, 5.4, 3.1, 6.2, 1.1]). A "rogue wave" is defined as any wave strictly taller than 4.0 meters.
+#Task 1: Write the code to extract an array containing only the rogue waves.
+#Task 2: Write the code to find out how many rogue waves occurred. (Hint: What happens if you run .sum() on a boolean mask?)
+
+height3 = np.array([1.2, 2.5, 0.8, 5.4, 3.1, 6.2, 1.1])
+rogue_height = 4
+rogue_waveT = (height3 > rogue_height)
+rogue_waveN = height3[rogue_waveT]
+len(rogue_waveN)
+
+#### 42) The Particle Accelerator (Applying Forces)
+####You have 5 particles with velocities: v = np.array([-2.0, 1.5, 0.0, 3.0, -1.0]). 
+#### You apply a magnetic field that only accelerates particles moving to the right ($v > 0$). 
+# The field adds $5.0$ m/s to their velocity. Particles moving left or standing still are unaffected.
+####Task: Write the code to update the v array using boolean indexing. No for loops allowed!
+
+v = np.array([-2.0, 1.5, 0.0, 3.0, -1.0])
+v_leftT = (v <0)
+v[v_leftT] -5 = v
+v = v+5
+print(v)
