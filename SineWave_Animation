@@ -1,0 +1,29 @@
+import numpy as np 
+import matplotlib.pyplot as plt 
+from matplotlib.animation import FuncAnimation
+
+t = np.linspace(0,10,100)
+Y = np.sin(t)
+
+fig, axes = plt.subplots()
+axes.set_xlim([0,10])
+axes.set_ylim([-2,2])
+
+Animated_Plot , = axes.plot([], [], color = 'green', linewidth = 2)
+
+def update_values(frame):
+    Animated_Plot.set_data(t[:frame], Y[:frame])
+    return Animated_Plot
+
+animation = FuncAnimation(
+    fig = fig,
+    func = update_values,
+    frames= len(t),
+    interval = 25,
+    repeat = True,
+
+)
+axes.set_xlabel("Sine(t)")
+axes.set_ylabel("Time(t)")
+plt.grid(True, linestyle = '--')
+plt.show()
