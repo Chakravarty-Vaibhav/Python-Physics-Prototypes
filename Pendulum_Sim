@@ -1,0 +1,64 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+# Pendulum equations
+# d(theta)/dt = omega
+# d(omega)/dt = -(g/L) * sin(theta)
+
+g = 9.81
+L = 1.0
+
+def derivatives(state, t):
+    theta, omega = state
+    dtheta_dt = omega
+    domega_dt = -(g/L) * np.sin(theta)
+    return np.array([dtheta_dt, domega_dt])
+
+def rk4_step(state, t, dt):
+    k1 = derivatives(state, t)
+    k2 = derivatives(state + dt*k1/2, t + dt/2)
+    k3 = derivatives(state + dt*k2/2, t + dt/2)
+    k4 = derivatives(state + dt*k3, t + dt)
+    return state + (dt/6) * (k1 + 2*k2 + 2*k3 + k4)
+
+# Initial conditions
+theta0 = np.pi/3   
+omega0 = 0.0       
+state = np.array([theta0, omega0])
+
+dt = 0.01
+t_max = 20.0
+steps = int(t_max/dt)
+
+thetas = np.zeros(steps)
+times = np.linspace(0, t_max, steps)
+
+for i in range(steps):
+    thetas[i] = state[0]
+    state = rk4_step(state, times[i], dt)
+
+
+x = L * np.sin(thetas)
+y = -L * np.cos(thetas)
+
+# Animate
+fig, ax = plt.subplots(figsize=(6,6))
+ax.set_xlim(-1.5, 1.5)
+ax.set_ylim(-1.5, 1.5)
+ax.set_aspect('equal')
+ax.grid(True)
+
+line, = ax.plot([], [], 'b-', linewidth=2)
+bob, = ax.plot([], [], 'ro', markersize=15)
+
+def animate(i):
+    line.set_data([0, x[i*3]], [0, y[i*3]])
+    bob.set_data([x[i*3]], [y[i*3]])
+    return line, bob
+
+ani = animation.FuncAnimation(fig, animate,
+                               frames=steps//3,
+                               interval=20, blit=True)
+plt.title("Pendulum — RK4 Integration")
+plt.show()
